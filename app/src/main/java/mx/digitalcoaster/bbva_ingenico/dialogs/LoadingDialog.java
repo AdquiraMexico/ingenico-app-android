@@ -53,7 +53,7 @@ public class LoadingDialog {
     }
 
     public void setLoader_text(String text) {
-       this.loader_text.setText(text);
+        this.loader_text.setText(text);
     }
 
     public void show(){
@@ -100,7 +100,7 @@ public class LoadingDialog {
         dialog.dismiss();
     }
 
-    public void playDots(final int index){
+    public void playDots(int index){
 
         ScaleAnimation scaleanimation = new ScaleAnimation(1, (float)1.5, 1, (float)1.5, Animation.RELATIVE_TO_SELF, (float)0.5, Animation.RELATIVE_TO_SELF, (float)0.5);
         scaleanimation.setDuration(500);
@@ -127,7 +127,7 @@ public class LoadingDialog {
         });
     }
 
-    public void allowBackButton(Boolean allow, final Runnable runnable){
+    public void allowBackButton(Boolean allow, Runnable runnable){
         if (allow){
             dialog.setOnKeyListener(new Dialog.OnKeyListener() {
                 @Override

@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/blue_celeste"
     tools:context=".activities.CardActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal">
+
+        <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeEditText
+            android:id="@+id/importeEntero"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-light"
+            android:hint="$ 0.00 "
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="65sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MNX"
+            android:textSize="20dp"
+            android:id="@+id/monedaTV"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:src="@mipmap/icono_vinculacion" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:text="VINCULA EL LECTOR DE TARJETAS \n AL DISPOSITIVO MÓVIL"/>
+
+    <Button
+        android:id="@+id/ibAceptar"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="CONTINUAR"
+        android:textColor="@color/white"
+        android:background="@drawable/button3" />
+
+</LinearLayout>
