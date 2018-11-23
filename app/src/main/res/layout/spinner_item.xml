@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="?android:attr/spinnerItemStyle"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:id="@+id/row"
+    android:padding="8dp">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ellipsize="marquee"
+        android:textSize="16dp"
+        android:text="##%"
+        android:id="@+id/rowTV"
+        android:textColor="@color/dark_grey"
+        android:textAlignment="inherit"/>
+
+</LinearLayout>

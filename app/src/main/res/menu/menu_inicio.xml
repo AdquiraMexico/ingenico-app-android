@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/cbTransaccion"
+            android:titleCondensed="Transacción"
+            android:title="No. de Transacción"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:checkable="true">
+
+        </item>
+
+        <item android:id="@+id/cbConcepto"
+            android:title="Concepto"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:checkable="true">
+        </item>
+
+        <item android:id="@+id/cbPropina"
+            android:title="Propina"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:checkable="true">
+        </item>
+    </group>
+</menu>
