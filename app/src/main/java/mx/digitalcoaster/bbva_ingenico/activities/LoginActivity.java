@@ -49,7 +49,11 @@ public class LoginActivity extends FlapRequests implements FlapRequests.FlapResp
         accessButton = findViewById(R.id.accessButton);
         llLogin = findViewById(R.id.llLogin);
 
+        registerCallback(this);
+        setServicio("1488;773");
         renuevaSesion();
+        modoDeveloper();
+
 
         accessButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -70,7 +74,7 @@ public class LoginActivity extends FlapRequests implements FlapRequests.FlapResp
                     case MotionEvent.ACTION_POINTER_DOWN:
                         // multitouch!! - touch down
                         int count = event.getPointerCount(); // Number of 'fingers' in this time
-                        if (count == 3) {
+                        if (count == 2) {
                             cheat++;
                             if (cheat == 3) {
                                 modoDev();
@@ -106,7 +110,7 @@ public class LoginActivity extends FlapRequests implements FlapRequests.FlapResp
 
 
     private void renuevaSesion(){
-        SharedPreferences prefs = this.getSharedPreferences("flap", Context.MODE_PRIVATE);
+        SharedPreferences prefs = this.getSharedPreferences("ingenico", Context.MODE_PRIVATE);
         String user_sp = prefs.getString("usuario",null);
         String password_sp = prefs.getString("password",null);
 

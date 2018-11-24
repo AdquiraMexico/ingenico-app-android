@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:background="@mipmap/mainimg"
-            android:scaleX="1.16"
+            android:scaleType="centerCrop"
             android:src="@mipmap/mainimg" />
 
         <ImageView

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar2"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
@@ -11,8 +11,8 @@
     android:textAlignment="center">
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <ImageButton
             android:layout_width="30dp"
@@ -21,6 +21,7 @@
             android:src="@mipmap/icon_menu"
             android:scaleX=".7"
             android:scaleY=".7"
+            android:visibility="gone"
             android:scaleType="fitCenter"
             android:background="#00ffffff" />
 
@@ -32,7 +33,21 @@
             android:src="@mipmap/logomposbbva"
             android:layout_toRightOf="@+id/imageButton3" />
 
+        <ImageButton
+            android:id="@+id/deviceButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:background="#00ffffff"
+            android:scaleType="fitCenter"
+            android:scaleX=".7"
+            android:scaleY=".7"
+            android:src="@mipmap/deviceoff" />
 
     </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
+</android.support.v7.widget.Toolbar>

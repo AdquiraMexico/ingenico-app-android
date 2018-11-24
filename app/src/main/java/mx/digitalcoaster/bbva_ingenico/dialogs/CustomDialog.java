@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class CustomDialog {
         dialog.setContentView(R.layout.dialog_login_error);
         TextView tvMensError = dialog.findViewById(R.id.tvMensError);
         tvMensError.setText(mensaje);
-        ImageButton tvAceptar = dialog.findViewById(R.id.tvAceptar);
+        Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
         tvAceptar.setOnClickListener(v -> {
             dialog.dismiss();
         } );
@@ -35,7 +36,7 @@ public class CustomDialog {
         dialog.setContentView(R.layout.dialog_login_error);
         TextView tvMensError = dialog.findViewById(R.id.tvMensError);
         tvMensError.setText(mensaje);
-        ImageButton tvAceptar = dialog.findViewById(R.id.tvAceptar);
+        Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
         tvAceptar.setOnClickListener(v -> {
             context.runOnUiThread(aceptar);
             dialog.dismiss();

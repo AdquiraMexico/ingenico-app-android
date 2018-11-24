@@ -57,6 +57,7 @@ public class InicioActivity extends AppCompatActivity {
     Toolbar mToolbar;
     ImageButton menu_open;
     Intent fromIntent;
+    Context context = this;
 
     SharedPreferences prefs;
     public MenuItem menu_1;
@@ -92,14 +93,14 @@ public class InicioActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        android.support.v7.app.ActionBar ab =getSupportActionBar();
+        android.support.v7.app.ActionBar ab = getSupportActionBar();
         ab.setTitle("");
         ab.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
         ab.setCustomView(R.layout.action_bar_title);
         ab.setDisplayShowHomeEnabled(true);
         // display the first navigation drawer view on app launch
 
-        prefs = this.getSharedPreferences("flap", Context.MODE_PRIVATE);
+        prefs = this.getSharedPreferences("ingenico", Context.MODE_PRIVATE);
         sTransaccion = prefs.getString("trans", null);
         sConcepto = prefs.getString("concepto", null);
 
@@ -176,7 +177,7 @@ public class InicioActivity extends AppCompatActivity {
 
         } else if (position == 3) {
             //Cerrar Sesión
-            SharedPreferences prefs = this.getSharedPreferences("flap", Context.MODE_PRIVATE);
+            SharedPreferences prefs = this.getSharedPreferences("ingenico", Context.MODE_PRIVATE);
             prefs.edit().clear().commit();
             Intent mainIntent = new Intent().setClass(  InicioActivity.this, LoginActivity.class);
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -232,7 +233,7 @@ public class InicioActivity extends AppCompatActivity {
                     importeTxt.addTextChangedListener(this);
                 }
                 if (importeTxt.getText().length() > 14) {
-                    hideSoftKeyboard(getParent());
+                    hideSoftKeyboard((Activity) context);
                     importeTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fOriginalSize);
                     CustomDialog dialog = new CustomDialog(getParent(), "Monto excedido");
                     dialog.show();
@@ -306,9 +307,9 @@ public class InicioActivity extends AppCompatActivity {
                     propinaET.addTextChangedListener(this);
                 }
                 if (propinaET.getText().length() > 14) {
-                    hideSoftKeyboard(getParent());
+                    hideSoftKeyboard((Activity) context);
                     propinaET.setTextSize(TypedValue.COMPLEX_UNIT_PX, fOriginalSize2);
-                    CustomDialog dialog = new CustomDialog(getParent(), "Monto excedido");
+                    CustomDialog dialog = new CustomDialog((Activity) context, "Monto excedido");
                     dialog.show();
                     propinaET.removeTextChangedListener(this);
                     propinaET.setText("");
@@ -371,7 +372,7 @@ public class InicioActivity extends AppCompatActivity {
                                 fAmount = fAmount + fPropinaAmount;
                                 sAmount2 = String.format("%.2f", fAmount);
 
-                                hideSoftKeyboard(getParent());
+                                hideSoftKeyboard((Activity) context);
                                 
                                 Intent intent = new Intent(InicioActivity.this, CardActivity.class);
                                 intent.putExtra("concepto", etConcepto.getText().toString());
@@ -408,7 +409,7 @@ public class InicioActivity extends AppCompatActivity {
 
                         sAmount2 = String.format("%.2f", fAmount);
 
-                        hideSoftKeyboard(getParent());
+                        hideSoftKeyboard((Activity) context);
                         Intent intent = new Intent(InicioActivity.this, CardActivity.class);
                         intent.putExtra("concepto", etConcepto.getText().toString());
                         intent.putExtra("monto", sAmount2);
@@ -420,7 +421,7 @@ public class InicioActivity extends AppCompatActivity {
 
                     }
                 }else{
-                    hideSoftKeyboard(getParent());
+                    hideSoftKeyboard((Activity) context);
                     Intent intent = new Intent(InicioActivity.this, CardActivity.class);
                     intent.putExtra("concepto", etConcepto.getText().toString());
                     intent.putExtra("monto", sAmount2);
@@ -428,6 +429,7 @@ public class InicioActivity extends AppCompatActivity {
                     intent.putExtra("noTrans", etNoTrans.getText().toString());
                     intent.putExtra("token",  fromIntent.getStringExtra("token"));
                     intent.putExtra("ambiente",  fromIntent.getStringExtra("ambiente"));
+                    startActivity(intent);
                 }
 
             }
@@ -486,7 +488,7 @@ public class InicioActivity extends AppCompatActivity {
         menu_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MenuDialog menu = new MenuDialog(getParent());
+                MenuDialog menu = new MenuDialog((Activity) context);
                 menu.show();
             }
         });
@@ -563,7 +565,8 @@ public class InicioActivity extends AppCompatActivity {
 
         spMoneda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                prefs.edit().putString("moneda", i+"").apply();
+
+                prefs.edit().putString("moneda", i + "").apply();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -574,7 +577,9 @@ public class InicioActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu ) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_inicio, menu);
         menu_1 = menu.findItem(R.id.cbTransaccion);
         menu_2 = menu.findItem(R.id.cbConcepto);
         menu_3 = menu.findItem(R.id.cbPropina);
@@ -650,7 +655,7 @@ public class InicioActivity extends AppCompatActivity {
         if(mIsRestoredFromBackstack)
         {
             // The fragment restored from backstack, do some work here!
-            prefs = this.getSharedPreferences("flap", Context.MODE_PRIVATE);
+            prefs = this.getSharedPreferences("ingenico", Context.MODE_PRIVATE);
             sTransaccion = prefs.getString("trans", "0");
             sConcepto = prefs.getString("concepto", "0");
             sPropina = prefs.getString("propina", "0");

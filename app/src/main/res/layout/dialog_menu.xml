@@ -13,7 +13,6 @@
         android:id="@+id/drop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_sky"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingTop="20dp"
@@ -140,13 +139,8 @@
             android:layout_height="0.5dp"
             android:background="@drawable/line"/>
 
-
     </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="43dp"
-        android:background="@drawable/line"/>
+
 
 </LinearLayout>
 

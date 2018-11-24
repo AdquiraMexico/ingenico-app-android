@@ -6,15 +6,27 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
     android:background="@color/blue_celeste"
     tools:context=".activities.CardActivity">
+
+    <LinearLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar2"
+            layout="@layout/toolbar2" />
+    </LinearLayout>
+
 
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal">
@@ -44,17 +56,22 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:src="@mipmap/icono_vinculacion" />
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/icono_vinculacion" />
 
     <TextView
+        android:id="@+id/statusEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
         android:text="VINCULA EL LECTOR DE TARJETAS \n AL DISPOSITIVO MÓVIL"/>
 
     <Button

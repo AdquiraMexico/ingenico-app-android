@@ -78,7 +78,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:scrollbars="none"
-                android:layout_height="wrap_content">
+                android:layout_height="250dp">
 
                 <LinearLayout
 
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="CORREO ELECTRONICO"
-                        android:textSize="18dp"
+                        android:textSize="15dp"
                         android:textColor="@color/aqua" />
 
                     <EditText
@@ -109,12 +109,34 @@
                         android:textColorHint="#bdbdbd" />
 
                     <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="MONEDA: "
+                        android:textSize="15dp"
+                        android:textColor="@color/aqua"
+                        />
+
+                    <Spinner
+                        android:id="@+id/spinner3"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:spinnerMode="dropdown"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:outlineAmbientShadowColor="@color/white"
+                        android:outlineSpotShadowColor="@color/white"
+                        android:transitionGroup="false" />
+                    <TextView
                         android:id="@+id/textView27"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Nº TRANSACCIÓN "
-                        android:textSize="18dp"
+                        android:textSize="15dp"
                         android:textColor="@color/aqua"
                         android:visibility="gone" />
 
@@ -137,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="CONCEPTO"
-                        android:textSize="18dp"
+                        android:textSize="15dp"
                         android:textColor="@color/aqua"
                         android:visibility="gone" />
 
@@ -154,28 +176,7 @@
                         android:textColorHint="#bdbdbd"
                         android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="MONEDA: "
-                        android:textSize="18dp"
-                        android:textColor="@color/aqua"
-                        />
 
-                    <Spinner
-                        android:id="@+id/spinner3"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:spinnerMode="dropdown"
-                        android:textAlignment="center"
-                        android:textColor="#ffffff"
-                        android:outlineAmbientShadowColor="@color/white"
-                        android:outlineSpotShadowColor="@color/white"
-                        android:transitionGroup="false" />
 
                     <LinearLayout
                         android:id="@+id/layoutPropina"
@@ -197,8 +198,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="Propina: "
-                                android:textColor="#bdbdbd" />
+                                android:text="PROPINA: "
+                                android:textSize="15dp"
+                                android:textColor="@color/aqua"
+                                />
 
                             <Spinner
                                 android:id="@+id/spinner2"

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Promoción"
+                android:id="@+id/titulo"
+                android:textSize="19dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="#5bbeff"
+                android:layout_margin="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/puntosLayout"
+                android:visibility="visible"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Usar Puntos Bancomer"
+                    android:id="@+id/textView"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textColor="#AAA"
+                    android:textSize="22dp" />
+
+                <Switch
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/switch1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/mesesLayout"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Meses"
+                    android:id="@+id/textView13"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textColor="#AAA"
+                    android:textSize="22dp" />
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/spinner"
+                    android:transitionGroup="false"
+                    android:backgroundTint="@color/light_blue"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aceptar >"
+            android:id="@+id/tvAceptar"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#5bbeff"
+            android:onClick="closeDialog"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="20dp" />
+    </LinearLayout>
+</LinearLayout>
