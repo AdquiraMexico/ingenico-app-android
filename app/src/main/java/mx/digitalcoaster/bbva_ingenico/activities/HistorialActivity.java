@@ -27,7 +27,7 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.digitalcoaster.rzertuche.requestsflap.FlapRequests;
+import mx.digitalcoaster.bbva_ingenico.activities.FlapRequests;
 
 import org.json.JSONArray;
 import org.json.JSONException;

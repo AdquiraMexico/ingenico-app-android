@@ -37,9 +37,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.digitalcoaster.rzertuche.requestsflap.CommonActivity;
-import com.digitalcoaster.rzertuche.requestsflap.FlapRequests;
-
+import mx.digitalcoaster.bbva_ingenico.activities.CommonActivity;
+import mx.digitalcoaster.bbva_ingenico.activities.FlapRequests;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -79,6 +78,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     protected static ArrayAdapter<String> arrayAdapter;
     protected static List<BluetoothDevice> foundDevicesList;
 
+    private static final String ACTION_USB_PERMISSION = "mx.digitalcoaster.bbva_ingenico.activities.requestsflap.USB_PERMISSION";
 
     //GPS
     private LocationManager locationManager;
@@ -176,13 +176,16 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     }
 
     private void makeConexion(){
-        setDevice("Ingenico");
+        //setDevice("Ingenico");
         //ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.img_procesando));
         //startIngenico ();
-
+            Log.d("DIGITALCOASTER", "STARTINGENICO");
         startIngenico ();
+        Log.d("DIGITALCOASTER", "SCANDEVICES");
         scanDevices();
+        Log.d("DIGITALCOASTER", "PROMPTFORCONEXION");
         promptForConnection();
+
 
     }
 
@@ -233,6 +236,9 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 String sDevice = pairedDevices[position].getAddress () + pairedDevices[position].getName ();
                 Log.d("Divice", nameDevice);
                 connectTo (sDevice);
+
+                //setPaymentArguments("2.00","-","-","-","token","P","-","-","-");
+
                 //connectNomad(pairedDevices[position]);
                 dismissDialog();
             }
@@ -320,13 +326,18 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
     @Override
     public void isDeviceConnected(Boolean bConnected) {
+
+
         isReaderConnected = bConnected;
         if (bConnected){
+            Log.d("DIGITALCOASTER","ISDICECONNECTEDCHANGE");
+            loading.dismiss();
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceon));
             statusEditText.setText("DISPOSITIVO CONECTADO. \n CONTINUAR");
         }else {
             //FALTA cambiar imagen y agregar un boton para activar bluetooth
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceoff));
+           // loading.dismiss();
             statusEditText.setText("VINCULA EL LECTOR DE TARJETAS \n AL DISPOSITIVO MÓVIL");
         }
     }
@@ -480,13 +491,15 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
         Log.d ("didFinishPayment", sMessage);
 
         if (loading.showing) {
-            loading.dismiss ();
+            loading.dismiss();
         }
         loading.showing = false;
         pinEntered = false;
 
         //En caso de pago correcto
         if (bSuccess) {
+            Log.d ("DIGITALCOASTER","ya estamos con el finishpayment");
+
             //finishPayment = true;
             String amountString = getAmount ();
             Log.d ("mpos", "Amount. " + amountString + sMoneda);
@@ -512,7 +525,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 //Answers.getInstance().logCustom(new CustomEvent("CHIP & PIN Payment Succesfull"));
                 CustomDialog mCustomDialog = new CustomDialog (context, amountString,
                         "El recibo se enviará al ",
-                        "correo electrónico del tarjeta hambiente",
+                        "correo electrónico del usuario",
                         "¡Gracias por utilizar ",
                         "MPOS!",
                         sAuthCode,
@@ -713,7 +726,8 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
         public void onClick(View v) {
             Log.d("SERVICIO","servicio"+servicio);
             if (isBTConnected || isReaderConnected){
-                setPaymentArguments(sMonto, sConcepto, sEmail, sOrden, sToken, sAmbiente, latitud, longitud, servicio);
+                setPaymentArguments(sMonto, "-","-","-","token","P","-","-","-");
+                //            setPaymentArguments("2.00","-","-","-","token","P","-","-","-");
                 setVersion_app("whitelabel_a_1.0.2");
                 statusEditText.setText("Inserta o desliza la tarjeta...");
                 loading = new LoadingDialog(context,"Inserta o desliza la tarjeta...","","");

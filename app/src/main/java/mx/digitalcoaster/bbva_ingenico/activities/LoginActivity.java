@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.digitalcoaster.rzertuche.requestsflap.FlapRequests;
+import mx.digitalcoaster.bbva_ingenico.activities.FlapRequests;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
