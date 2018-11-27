@@ -14,7 +14,7 @@
             android:layout_height="50dp"
             android:id="@+id/imageView4"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/icon_operacion_exitosa"
+            android:src="@mipmap/circulo_verde"
             android:layout_marginTop="18dp" />
 
         <LinearLayout

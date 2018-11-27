@@ -12,6 +12,8 @@
         android:label="BLUETOOTH" />
     <permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <uses-feature android:name="android.hardware.usb.host"/>
+
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -46,7 +48,13 @@
         </activity>
         <activity android:name=".activities.CardActivity" />
         <activity android:name=".activities.HistorialActivity" />
-        <activity android:name=".activities.SoporteActivity"></activity>
+        <activity android:name=".activities.SoporteActivity" />
+        <activity android:name=".activities.FingerDrawActivity" />
+        <activity android:name=".activities.FinishActivity"></activity>
+
+        <service android:name="com.ingenico.pclservice.PclService" />
+        <service android:name="com.ingenico.pclservice.BluetoothService" />
+
     </application>
 
 </manifest>

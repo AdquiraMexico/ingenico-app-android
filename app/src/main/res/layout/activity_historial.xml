@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HistorialActivity">
+    tools:context=".activities.HistorialActivity"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/container_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar3"
+            layout="@layout/toolbar3" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="ÚLTIMAS TRANSACCIONES"
+        android:id="@+id/tvUltiTrans"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/blue_sky"
+        android:gravity="center"
+        android:allowUndo="true"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/llFiltros"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#072146"
+        android:paddingTop="5dp"
+        android:visibility="gone"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:paddingBottom="5dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibAprob"
+            android:background="@mipmap/btn_on"
+             />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibOrden"
+            android:background="@mipmap/btn_on"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentRight="true" />
+    </LinearLayout>
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/lvHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp" />
+
+</LinearLayout>

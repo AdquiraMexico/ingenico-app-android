@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@color/blue_sky"
+    android:orientation="vertical" >
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="55dp"
+		android:layout_gravity="center"
+		android:gravity="center"
+		android:background="#072146">
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/imageView3"
+			android:src="@mipmap/icon_bluetooth_notificacion"
+			android:layout_gravity="center" />
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="SELECCIONA EL DISPOSITIVO A CONECTAR"
+		android:id="@+id/textView15"
+		android:textAlignment="center"
+		android:background="@color/blue_celeste"
+		android:textColor="@color/white"
+		android:gravity="center"
+		android:padding="10dp"
+		android:textSize="15dp" />
+
+	<TextView
+		android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Pareados"
+		android:textSize="13dp"
+		android:visibility="gone"
+		android:paddingLeft="15dp" />
+    
+    <ListView
+	    android:id="@+id/pairedDeviceList"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+		android:paddingLeft="0dp" />
+    
+    <TextView
+		android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Descubiertos"
+		android:textSize="13dp"
+		android:paddingLeft="15dp" />
+	    
+	<ListView
+	    android:id="@+id/discoveredDeviceList"
+	    android:layout_width="fill_parent"
+	    android:layout_height="200dp" />
+	    
+	<Button
+       	android:id="@+id/cancelButton" 
+       	android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:text="Cancelar"
+		android:background="#2a86ca"
+		android:textColor="#fff" />
+    
+</LinearLayout>

@@ -31,7 +31,7 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal">
 
-        <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeEditText
+        <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeTextView
             android:id="@+id/importeEntero"
             android:layout_width="wrap_content"
             android:layout_height="80dp"

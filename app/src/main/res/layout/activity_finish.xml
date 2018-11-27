@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue_celeste"
+    android:gravity="center_horizontal"
+    tools:context=".activities.FinishActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="40dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@mipmap/circulo_verde" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:text="OPERACIÓN EXITOSA"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".2"
+        android:text="SE REALIZÓ UN COBRO DE"
+        android:textColor="@color/white"/>
+
+    <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeTextView
+        android:id="@+id/importeEntero"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".8"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-light"
+        android:hint="$ 0.00 "
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textColor="@color/aqua"
+        android:textColorHint="@color/aqua"
+        android:textSize="65sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:text="Nº aprobación : 0881313"
+        android:textColor="@color/white"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2.3"
+        android:scaleX="1.4"
+        android:scaleY="1.4"
+        android:src="@mipmap/icono_operacion_exitosa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:textAlignment="center"
+        android:text="El comprobante del pago se\n enviara al correo eletrónico ingresado"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button1"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="50dp"
+        android:text="FINALIZAR"/>
+
+
+
+
+
+
+</LinearLayout>

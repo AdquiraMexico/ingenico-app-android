@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/blue_sky"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="METODO DE PAGO"
+            android:id="@+id/textView14"
+            android:textSize="19dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_margin="10dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/imageDesliza"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icono_desliza" />
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#00ffffff"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icono_inserta" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:id="@+id/textDesliza"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="DESLIZA"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@mipmap/icono_desliza" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="INSERTA"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="#00ffffff"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icono_inserta" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar >"
+            android:id="@+id/tvAceptar"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/light_blue"
+            android:onClick="closeDialog"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="20dp" />
+    </LinearLayout>
+</LinearLayout>

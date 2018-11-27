@@ -10,10 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +25,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -38,11 +45,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import mx.digitalcoaster.bbva_ingenico.R;
 import mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeTextView;
 import mx.digitalcoaster.bbva_ingenico.dialogs.CustomDialog;
 import mx.digitalcoaster.bbva_ingenico.dialogs.CustomDialogPoints;
+import mx.digitalcoaster.bbva_ingenico.dialogs.CustomDialogReader;
 import mx.digitalcoaster.bbva_ingenico.dialogs.LoadingDialog;
 
 public class CardActivity extends FlapRequests implements FlapRequests.FlapResponses, LocationListener {
@@ -155,6 +164,111 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             Log.d("GPS", "Ubicación no disponible");
         }
 
+
+        diviceButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                makeConexion();
+            }
+        });
+
+
+
+    }
+
+    private void makeConexion(){
+        setDevice("Ingenico");
+        //ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.img_procesando));
+        //startIngenico ();
+
+        startIngenico ();
+        scanDevices();
+        promptForConnection();
+
+    }
+
+
+    public void promptForConnection() {
+
+        Object[] pairedObjects = BluetoothAdapter.getDefaultAdapter().getBondedDevices().toArray();
+        final BluetoothDevice[] pairedDevices = new BluetoothDevice[pairedObjects.length];
+
+        for (int i = 0; i < pairedObjects.length; ++i) {
+            pairedDevices[i] = (BluetoothDevice) pairedObjects[i];
+        }
+
+
+        final ArrayAdapter<String> mArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View view =super.getView(position, convertView, parent);
+                TextView textView= view.findViewById(android.R.id.text1);
+                textView.setTextColor(Color.rgb(255, 255, 255));
+                return view;
+            }
+        };
+
+        for (int i = 0; i < pairedDevices.length; ++i) {
+            mArrayAdapter.add(pairedDevices[i].getName());
+        }
+        dismissDialog();
+
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.bluetooth_2_device_list_dialog);
+        dialog.setTitle("Dispositivos");
+
+        ListView listView1 = dialog.findViewById(R.id.pairedDeviceList);
+        listView1.setAdapter(mArrayAdapter);
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            //Dispositivo seleccionado
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                loading = new LoadingDialog(context,"Conectando dispositivo...","","");
+                loading.show();
+                loading.showing=true;
+
+                String nameDevice = pairedDevices[position].getName ();
+                CharSequence csDevice = pairedDevices[position].getAddress ();
+                String sDevice = pairedDevices[position].getAddress () + pairedDevices[position].getName ();
+                Log.d("Divice", nameDevice);
+                connectTo (sDevice);
+                //connectNomad(pairedDevices[position]);
+                dismissDialog();
+            }
+
+        });
+
+       /* arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+        ListView listView2 = (ListView) dialog.findViewById(R.id.discoveredDeviceList);
+        listView2.setAdapter(arrayAdapter);
+        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                loading = new LoadingDialog(context,"Conectando dispositivo...","","");
+                loading.show();
+                loading.showing=true;
+
+                String nameDevice = pairedDevices[position].getName ();
+                connectTo (nameDevice);
+                //connectNomad(foundDevicesList.get(position));
+                dismissDialog();
+            }
+
+        });*/
+
+        dialog.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //stopScanBluetooth();
+                dismissDialog();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
+        //scanBluetooth();
     }
 
 
@@ -289,10 +403,6 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             loading.showing=true;
         });
         mCustomDialogPoints.allowBackButton(true, ()->{
-            if (bbDeviceController != null){
-                statusEditText.setText("Lectura cancelada");
-            }
-
         });
         mCustomDialogPoints.show();
     }
@@ -334,10 +444,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                                  KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     dialog.dismiss();
-                    if (bbDeviceController != null){
-                        statusEditText.setText("Lectura cancelada");
-                    }
-
+                    statusEditText.setText("Lectura cancelada");
                     resetAll();
                     return true;
                 } else {
@@ -347,6 +454,117 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void startedOnlineTransaction(Boolean isEMV) {
+        if(isEMV){
+            //Pago por chip, MVS, TLV
+            loading.setLoader_text("Realizando pago...");
+
+        } else {
+            //Pago por banda, TRACKS, MSR
+            loading.setLoader_text("Realizando pago...");
+            loading.show ();
+            loading.showing = true;
+        }
+    }
+
+
+    @Override
+    public void didFinishPayment(Boolean bSuccess, String sTransactionId, String sAuthCode, String sCriptograma, String sMessage) {
+        Log.d ("didFinishPayment", bSuccess.toString ());
+        Log.d ("didFinishPayment", sTransactionId);
+        Log.d ("didFinishPayment", sAuthCode);
+        Log.d ("didFinishPayment", sCriptograma);
+        Log.d ("didFinishPayment", sMessage);
+
+        if (loading.showing) {
+            loading.dismiss ();
+        }
+        loading.showing = false;
+        pinEntered = false;
+
+        //En caso de pago correcto
+        if (bSuccess) {
+            //finishPayment = true;
+            String amountString = getAmount ();
+            Log.d ("mpos", "Amount. " + amountString + sMoneda);
+
+            SharedPreferences prefs = context.getSharedPreferences ("flap", Context.MODE_PRIVATE);
+            prefs.edit ().putString ("monto", amountString).apply ();
+            prefs.edit ().putString ("auth", sAuthCode).apply ();
+            prefs.edit ().putString ("transaction", sTransactionId).apply ();
+            prefs.edit ().putString ("ambiente", getEnv ()).apply ();
+            prefs.edit ().putString ("token", token).apply ();
+
+            //finishPayment = false;
+
+            //CrashAnalitycs
+            /*Answers.getInstance().logPurchase(new PurchaseEvent()
+                    .putCustomAttribute("Environment", env)
+                    .putItemPrice(BigDecimal.valueOf(Double.valueOf(amountString)))
+                    .putCurrency(Currency.getInstance(money))
+                    .putSuccess(true));*/
+
+            //Se pide algun tipo de firma electronica
+            if (pin_entered) {
+                //Answers.getInstance().logCustom(new CustomEvent("CHIP & PIN Payment Succesfull"));
+                CustomDialog mCustomDialog = new CustomDialog (context, amountString,
+                        "El recibo se enviará al ",
+                        "correo electrónico del tarjeta hambiente",
+                        "¡Gracias por utilizar ",
+                        "MPOS!",
+                        sAuthCode,
+                        sMoneda,
+                        () -> {
+                            Intent myIntent = new Intent (context, InicioActivity.class);
+                            myIntent.putExtra ("ambiente", getEnv ());
+                            myIntent.addFlags (Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity (myIntent);
+                            //Log.d("DataRequest","SUCCESS: " + response);
+                        }
+                );
+                mCustomDialog.show ();
+
+            } else { //Pide signature
+
+               /* if (isEMVAnswers){
+                    Answers.getInstance().logCustom(new CustomEvent("EMV Payment Succesfull"));
+                } else {
+                    Answers.getInstance().logCustom(new CustomEvent("MSR Payment Succesfull"));
+                }*/
+                CustomDialog customDialog = new CustomDialog (context, "La transacción se realizó ",
+                        "¡CORRECTAMENTE!", () -> {
+
+                    Intent intent;
+                    intent = new Intent (CardActivity.this, FingerDrawActivity.class );
+                    intent.putExtra ("amount", amountString);
+                    intent.putExtra ("ambiente", getEnv ());
+                    intent.putExtra ("transaccion", sTransactionId);
+                    intent.putExtra ("token", getToken ());
+                    startActivity (intent);
+
+                });
+                customDialog.show ();
+            }
+
+
+            // En caso de pago incorrecto
+        } else {
+            statusEditText.setText ("Error en Pago (" + sMessage + " )");
+            error = new CustomDialog (context, "Error en Pago (" + sMessage + " )", () -> {
+                finishPayment = false;
+            });
+            error.show ();
+            pagarButton.setEnabled (true);
+            regresarButton.setEnabled (true);
+            /*if (isEMVAnswers){
+                Answers.getInstance().logCustom(new CustomEvent("EMV Payment Error"));
+            } else {
+                Answers.getInstance().logCustom(new CustomEvent("MSR Payment Error"));
+            }*/
+        }
     }
 
     @Override
@@ -374,10 +592,6 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     }
 
 
-    @Override
-    public void didFinishPayment(Boolean aBoolean, String s, String s1, String s2, String s3) {
-
-    }
 
     @Override
     public void didSendSignature(Boolean aBoolean) {
@@ -389,14 +603,31 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
     }
 
-    @Override
-    public void isDeviceConnected(Boolean aBoolean) {
 
-    }
 
     @Override
-    public void scanResult(Boolean aBoolean, List<String> list, String s) {
+    public void scanResult(Boolean bSucces, List<String> divicesList, String sMessage) {
+        Log.d("ZERTUCHE","devicesFound");
+        if (divicesList != null) {
+                for (int i = 0; i < divicesList.size (); i++) {
+                    Log.d ("ZERTUCHE", "devicesFound: " + divicesList.get (i));
+                }
+                connectTo (divicesList.get (0)); //Al dispositivo conectado
 
+        }
+        else {
+            Log.d("SCANRESULT", bSucces.toString());
+            Log.d("SCANRESULT", sMessage);
+            if (loading != null){
+                if(loading.showing){
+                    loading.dismiss();}
+                loading.showing=false;
+            }
+            if (error == null){
+                error  = new CustomDialog(context, sMessage);
+                error.show();
+            }
+        }
     }
 
     @Override
@@ -407,6 +638,33 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     @Override
     public void confirmedAmount() {
 
+        if(loading.showing){
+            loading.dismiss();}
+        loading.showing=false;
+        CustomDialogReader reader = new CustomDialogReader(context,
+                ()->{
+                    statusEditText.setText("Deslizar tarjeta...");
+                    loading = new LoadingDialog(context,"Deslizar tarjeta...","","");
+                    loading.show();
+                    loading.showing=true;
+                    //swipeNomad();
+                },
+                ()->{
+                    statusEditText.setText("Insertar tarjeta...");
+                    loading = new LoadingDialog(context,"Insertar tarjeta...","","");
+                    loading.show();
+                    loading.showing=true;
+                    emvPayment (this);
+                    //emvNomad();
+                },
+                ()->{
+                    statusEditText.setText("Lectura cancelada");
+                }, getFallback());
+        reader.allowBackButton(true, ()->{
+            statusEditText.setText("Lectura cancelada");
+        });
+        reader.show();
+
     }
 
     @Override
@@ -416,11 +674,6 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
     @Override
     public void selectApplication(int i) {
-
-    }
-
-    @Override
-    public void startedOnlineTransaction(Boolean aBoolean) {
 
     }
 
@@ -444,6 +697,15 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
     }
 
+
+    //Dismiss Dialog
+    public void dismissDialog() {
+        if(dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
+
     //Buttons
     class MyOnClickListener implements View.OnClickListener {
 
@@ -457,13 +719,13 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 loading = new LoadingDialog(context,"Inserta o desliza la tarjeta...","","");
                 loading.show();
                 loading.showing=true;
-                if (bbDeviceController != null && isReaderConnected){
+                if (isReaderConnected){
                     checkCard();
                     loading.allowBackButton(true, ()->{
                         statusEditText.setText("Lectura cancelada");
                     });
                 }
-                if (bbDeviceController != null && isBTConnected){
+                if (isBTConnected){
                     checkCard();
                     loading.allowBackButton(true, ()->{
                         statusEditText.setText("Lectura cancelada");
