@@ -20,21 +20,28 @@ import mx.digitalcoaster.bbva_ingenico.models.Historial;
  */
 public class HistorialArrayAdapter extends ArrayAdapter<Historial> {
 
-    public HistorialArrayAdapter(Context context, List<Historial> objects) {
-        super(context, 0, objects);
+    private Context context;
+    private int layoutResourceId;
+    private List<Historial> listaHistorial;
+
+    public HistorialArrayAdapter(Context context, int position, List<Historial> objects) {
+        super(context, position, objects);
+        this.context = context;
+        this.layoutResourceId = position;
+        this.listaHistorial = objects;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View listItemView = convertView;
 
         //Comprobando si el View no existe
-        if (null == convertView)
-            listItemView = inflater.inflate(R.layout.historial_list_item, parent, false);
+        if (null == convertView) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            listItemView = inflater.inflate(layoutResourceId, parent, false);
+        }
 
-        Historial item = getItem(position);
-
+        Historial item = listaHistorial.get(position);
         TextView tvFecha = listItemView.findViewById(R.id.tvFecha);
         TextView tvMonto =  listItemView.findViewById(R.id.tvMonto);
         TextView tvConcepto = listItemView.findViewById(R.id.tvConcepto);

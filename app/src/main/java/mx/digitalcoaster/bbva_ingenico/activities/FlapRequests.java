@@ -1114,7 +1114,6 @@ public abstract class FlapRequests extends CommonActivity {
                 System.out.println(response.toString());
                 JSONArray transactions =  response.optJSONArray("transactions");
                 System.out.println(transactions);
-
                 flap_responses.getTransactionsResponse(true, transactions, "transacciones");
             }
 
@@ -2045,8 +2044,8 @@ public abstract class FlapRequests extends CommonActivity {
                 Log.d("ZERTUCHE", "METHOD:" + bytesToHexString(buffer2).replace(" ", "").substring(206,212));
                 String method = bytesToHexString(buffer2).replace(" ", "").substring(206,212) ;
                 Log.d("pinRequest", "pinRequest: "+ method);
-
-                if(method.equals("410302")) {
+//340101
+                if(method.equals("410302") || method.equals("340101")) {
                     Log.d("pinRequest", "pinRequest");
                     flap_responses.pinRequest();
                 }

@@ -47,7 +47,7 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
 
     Activity context = this;
     private SwipeMenuListView lvHistorial;
-    private List historiales;
+    List<Historial> historiales;
     ArrayAdapter adaptador;
     private MenuItem mSearchAction;
     private EditText mSearchEt;
@@ -90,6 +90,8 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
 
 
 
+
+
         ibAprob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,8 +124,8 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
         });
 
 
-        ld = new LoadingDialog(context, "Cargando historial", "", "");
-        ld.show();
+        /*ld = new LoadingDialog(context, "Cargando historial", "", "");
+        ld.show();*/
 
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 1);
@@ -135,10 +137,11 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
         c2.add(Calendar.DAY_OF_MONTH, -7);
         String formattedDate2 = df.format(c2.getTime());
 
-        getTransactions(context, token, formattedDate2, formattedDate);
+        //getTransactions(context, token, formattedDate2, formattedDate);
 
-        historiales = new ArrayList<Historial>();
-        adaptador = new HistorialArrayAdapter (context, historiales);
+        historiales = new ArrayList<>();
+        historiales = llenarHistorial();
+        adaptador = new HistorialArrayAdapter (context, R.layout.historial_list_item,historiales);
         lvHistorial.setAdapter(adaptador);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -150,7 +153,7 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
                         item1.setBackground(R.color.white);
                         item1.setTitle("CANCELAR TRANSACCIÓN");
                         item1.setTitleSize(18);
-                        item1.setTitleColor(R.color.blue_celeste_light);
+                        item1.setTitleColor(R.color.blue_celeste);
                         item1.setWidth(600);
                         menu.addMenuItem(item1);
                         break;
@@ -170,7 +173,8 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
             } else {
                 ld = new LoadingDialog(context, "Cancelando transacción...", "", "");
                 ld.show();
-                cancelByTransactionId(context,token, item.getTransactionId());
+                historiales.remove(position);
+                //cancelByTransactionId(context,token, item.getTransactionId());
             }
             return false;
 
@@ -180,7 +184,7 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
 
     private void openSearchBar(String queryText) {
         llFiltros.setVisibility(View.VISIBLE);
-        tvUltTrans.setVisibility(View.INVISIBLE);
+        tvUltTrans.setVisibility(View.GONE);
         mSearchEt.setVisibility (View.VISIBLE);
         logoIV.setVisibility (View.INVISIBLE);
 
@@ -203,12 +207,12 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
     public void searchDefualt(){
         if(mSearchEt.getText().toString().length()>0){
             typeOfSearch="A";
-            ibAprob.setBackground (ContextCompat.getDrawable(context, R.mipmap.btn_off));
-            ibOrden.setBackground (ContextCompat.getDrawable(context, R.mipmap.btn_on));
+            ibAprob.setBackgroundResource (R.mipmap.btn_off);
+            ibOrden.setBackgroundResource (R.mipmap.btn_on);
             //mSearchEt = (EditText) ab.getCustomView().findViewById(R.id.etSearch);
             ld = new LoadingDialog(context,  "Buscando ", "No. de aprobación: ", mSearchEt.getText().toString());
             ld.show();
-            searchByAuthCodeOrOrder(context, token, mSearchEt.getText().toString(), "");
+            //searchByAuthCodeOrOrder(context, token, mSearchEt.getText().toString(), "");
 //            sv.searchTransaction(token, mSearchEt.getText().toString(),
 //                    () -> {
 //                        ld.dismiss();
@@ -240,11 +244,11 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
         Log.d("HistorialActivity",mSearchEt.getText().toString().length()+"");
         if(mSearchEt.getText().toString().length()>0){
             typeOfSearch="A";
-            ibAprob.setBackground (ContextCompat.getDrawable(context, R.mipmap.btn_on));
-            ibOrden.setBackground(ContextCompat.getDrawable(context, R.mipmap.btn_off));
+            ibAprob.setBackgroundResource (R.mipmap.btn_off);
+            ibOrden.setBackgroundResource(R.mipmap.btn_on);
             ld = new LoadingDialog(context, "Buscando ", "No. de aprobación: ", mSearchEt.getText().toString());
             ld.show();
-            searchByAuthCodeOrOrder(context, token, mSearchEt.getText().toString(), "");
+            //searchByAuthCodeOrOrder(context, token, mSearchEt.getText().toString(), "");
         } else {
             CustomDialog cd = new CustomDialog(context, "Campo vacío, ingresa No. de Aprobación o No. de Orden");
             cd.show();
@@ -256,12 +260,13 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
         Log.d("HistorialActivity",mSearchEt.getText().toString().length()+"");
         if(mSearchEt.getText().toString().length()>0){
             typeOfSearch = "O";
-            ibAprob.setBackground (ContextCompat.getDrawable(context, R.mipmap.btn_off));
-            ibOrden.setBackground(ContextCompat.getDrawable(context, R.mipmap.btn_on));
+            ibAprob.setBackgroundResource (R.mipmap.btn_on);
+            ibOrden.setBackgroundResource(R.mipmap.btn_off);
             //mSearchEt.setHint("Buscar Orden");
             ld = new LoadingDialog(context, "Buscando ", "No. de orden: ", mSearchEt.getText().toString());
             ld.show();
-            searchByAuthCodeOrOrder(context, token, "", mSearchEt.getText().toString());
+
+            //searchByAuthCodeOrOrder(context, token, "", mSearchEt.getText().toString());
         } else {
             CustomDialog cd = new CustomDialog(context, "Campo vacío, ingresa No. de Aprobación o No. de Orden");
             cd.show();
@@ -318,42 +323,99 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
 
     }
 
+    public List<Historial> llenarHistorial(){
+
+        Historial historial;
+
+        List<Historial> lista =new ArrayList<Historial> ();
+
+        historial  = new Historial(
+               "jfeg24n2",
+                "27/OCT/2018",
+                "9:55:07 AM",
+                "10.00",
+                "Validación",
+                "f24612f6-dcdb-40df-b089-877be",
+                "Adq1654",
+                "BBVA Bancomer",
+                "4098",//5491
+                "MXN",
+                "1", //CANCELACION
+                "C");
+        lista.add(historial);
+
+        historial  = new Historial(
+                "2117687",
+                "27/OCT/2018",
+                "6:01:44 PM",
+                "1.00",
+                "Validación",
+                "13cb4875-7aa7-44cb-8e70-635fa",
+                "Adq1654",
+                "BBVA Bancomer",
+                "491871*7618",//5491
+                "MXN",
+                "1", //CANCELACION
+                "F");
+        lista.add(historial);
+
+        historial  = new Historial(
+                "2095419",
+                "28/OCT/2018",
+                "9:20:07 AM",
+                "5.00",
+                "Validación",
+                "13cb4875-7aa7-44cb-8e70-635fa",
+                "Adq1654",
+                "SCOTIA",
+                "491871*7618",//5491
+                "MXN",
+                "1", //CANCELACION
+                "A");
+        lista.add(historial);
+
+        return lista;
+
+
+
+    }
+
 
     @Override
     public void getTransactionsResponse(Boolean success, JSONArray transactions, String message) {
         Log.d("TRANSACTIONS","LLEGA");
 
-        ld.dismiss();
+       /* ld.dismiss();
         if(success){
             Log.d("TRANSACTIONS",transactions.toString());
             adaptador = new HistorialArrayAdapter(context, historiales);
             lvHistorial.setAdapter(adaptador);
-            llenarListView(transactions);
+            //llenarListView(transactions);
         } else {
             Log.d("TRANSACTIONS",message);
             CustomDialog dialog = new CustomDialog(context, message);
             dialog.show();
-        }
+        }*/
     }
     @Override
     public void getSearchResponse(Boolean success, JSONArray transactions){
-        ld.dismiss();
+       /* ld.dismiss();
         if(success){
             Log.d("SEARCHTRANSACTIONS",transactions.toString());
             adaptador = new HistorialArrayAdapter(context, historiales);
             lvHistorial.setAdapter(adaptador);
-            llenarListView(transactions);
+            //llenarListView(transactions);
         } else {
             Log.d("SEARCHTRANSACTIONS","Error");
             CustomDialog dialog = new CustomDialog(context, "Error al buscar.");
             dialog.show();
-        }
+        }*/
     }
     @Override
     public void didCancelOrder(Boolean success, String message) {
         Log.d("didCancelOrder",success.toString());
         Log.d("didCancelOrder",message);
-        ld.dismiss();
+       /* ld.dismiss();
         if (success){
             CustomDialog dialog = new CustomDialog(context, "Transacción cancelada ", "Exitosamente.", ()->{
                 ld = new LoadingDialog(context, "Cargando historial", "", "");
@@ -376,7 +438,7 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
         } else {
             CustomDialog dialog = new CustomDialog(context, "Error en la transacción al cancelar.");
             dialog.show();
-        }
+        }*/
     }
 
     @Override

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_celeste"
     tools:context=".activities.HistorialActivity"
     android:orientation="vertical">
 
@@ -48,6 +49,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/ibAprob"
+            android:text="Nº Aprovación"
+            android:textColor="@color/white"
             android:background="@mipmap/btn_on"
              />
 
@@ -56,6 +59,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/ibOrden"
+            android:text="Nº Orden"
+            android:textColor="@color/white"
             android:background="@mipmap/btn_on"
             android:layout_marginLeft="30dp"
             android:layout_alignParentRight="true" />
@@ -65,7 +70,7 @@
         android:id="@+id/lvHistorial"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginTop="0dp" />
 
     <LinearLayout
@@ -73,6 +78,7 @@
         android:layout_height="match_parent"
         android:background="@color/blue_celeste"
         android:orientation="vertical"
+        android:visibility="invisible"
         android:gravity="center_horizontal"
         >
 

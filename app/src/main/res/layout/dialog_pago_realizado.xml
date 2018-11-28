@@ -18,6 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="50dp"
+            android:paddingLeft="50dp"
             android:background="@color/blue_celeste"
             android:orientation="vertical">
 
@@ -55,7 +57,7 @@
 
             <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeTextView
                 android:id="@+id/importeEntero"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight=".8"
@@ -117,12 +119,12 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
-                android:text="El comprobante de pago se enviara al correo electrónico ingresado"
+                android:text="El comprobante de pago se enviará al correo electrónico ingresado"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
 
-            <Button
+            tvMensaje<Button
                 android:id="@+id/tvAceptar2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"

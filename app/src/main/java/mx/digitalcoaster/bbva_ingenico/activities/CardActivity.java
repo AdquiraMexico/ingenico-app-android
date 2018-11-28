@@ -90,6 +90,8 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     String sMoneda = "";
 
     LoadingDialog loading;
+    LoadingDialog loadingConextion;
+
     CustomDialog error;
     CustomDialogReader customReader;
     String sToken;
@@ -110,6 +112,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
         setContentView(R.layout.activity_card);
 
         fromIntent = getIntent();
+        loadingConextion = new LoadingDialog(context,"Conectando dispositivo...","","");
 
         SharedPreferences prefs = this.getSharedPreferences("ingenico", Context.MODE_PRIVATE);
         //Argumentos recibidos del PayFragment
@@ -233,9 +236,9 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             //Dispositivo seleccionado
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                loading = new LoadingDialog(context,"Conectando dispositivo...","","");
-                loading.show();
-                loading.showing=true;
+
+                loadingConextion.show();
+                loadingConextion.showing=true;
 
                 String nameDevice = pairedDevices[position].getName ();
                 CharSequence csDevice = pairedDevices[position].getAddress ();
@@ -337,17 +340,23 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     public void isDeviceConnected(Boolean bConnected) {
 
 
+
+
         isReaderConnected = bConnected;
 
         if (bConnected){
             Log.d("DIGITALCOASTER","ISDICECONNECTEDCHANGE");
-            loading.dismiss();
+
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceon));
             statusEditText.setText("DISPOSITIVO CONECTADO \n CONTINUAR");
             pagarButton.setVisibility(View.VISIBLE);
-            loading.showing = false;
+
+
+
             CustomDialog cl = new CustomDialog(context,"Dispositivo móvil y lector \n de tarjetas vinculados",runnable, 0);
             cl.show();
+            loadingConextion.dismiss();
+            loadingConextion.showing=false;
         }else {
             //FALTA cambiar imagen y agregar un boton para activar bluetooth
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceoff));
@@ -534,7 +543,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                     String amountString = getAmount();
                     Log.d("mpos", "Amount. " + amountString + sMoneda);
 
-                    SharedPreferences prefs = context.getSharedPreferences("flap", Context.MODE_PRIVATE);
+                    SharedPreferences prefs = context.getSharedPreferences("ingenico", Context.MODE_PRIVATE);
                     prefs.edit().putString("monto", amountString).apply();
                     prefs.edit().putString("auth", sAuthCode).apply();
                     prefs.edit().putString("transaction", sTransactionId).apply();
@@ -788,22 +797,22 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 //            setPaymentArguments("2.00","-","-","-","token","P","-","-","-");
                 setVersion_app("whitelabel_a_1.0.2");
 
-                if(loading.showing){
+                /*if(loading.showing){
                     loading.dismiss();}
-                loading.showing=false;
+                loading.showing=false;*/
                 customReader = new CustomDialogReader(context,
                         ()->{
                             statusEditText.setText("Deslizar tarjeta...");
-                            loading = new LoadingDialog(context,"Deslizar tarjeta...","","");
+                           /* loading = new LoadingDialog(context,"Deslizar tarjeta...","","");
                             loading.show();
-                            loading.showing=true;
+                            loading.showing=true;*/
                             //swipeNomad();
                         },
                         ()->{
                             statusEditText.setText("Insertar tarjeta...");
-                            loading = new LoadingDialog(context,"Insertar tarjeta...","","");
+                            /*loading = new LoadingDialog(context,"Insertar tarjeta...","","");
                             loading.show();
-                            loading.showing=true;
+                            loading.showing=true;*/
                             emvPayment (context);
                             //emvNomad();
                         },

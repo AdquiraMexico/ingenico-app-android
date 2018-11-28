@@ -91,12 +91,12 @@ public class LoadingDialog {
     }
 
     public void dismiss(){
-        dot1.clearAnimation();
+        /*dot1.clearAnimation();
         dot2.clearAnimation();
         dot3.clearAnimation();
         dot4.clearAnimation();
-        dot5.clearAnimation();
-        circle.clearAnimation();
+        dot5.clearAnimation();*/
+//      circle.clearAnimation();
         dialog.dismiss();
     }
 
