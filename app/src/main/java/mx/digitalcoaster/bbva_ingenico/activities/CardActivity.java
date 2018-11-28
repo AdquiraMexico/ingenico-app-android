@@ -338,6 +338,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
 
         isReaderConnected = bConnected;
+
         if (bConnected){
             Log.d("DIGITALCOASTER","ISDICECONNECTEDCHANGE");
             loading.dismiss();
@@ -641,8 +642,12 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     }
 
     @Override
-    public void getTransactionsResponse(Boolean aBoolean, JSONArray jsonArray, String s) {
-
+    public void getTransactionsResponse(Boolean success, JSONArray transactions, String message) {
+        if(success){
+            Log.d("TRANSACTIONS",transactions.toString());
+        } else {
+            Log.d("TRANSACTIONS",message);
+        }
     }
 
     @Override

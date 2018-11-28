@@ -321,6 +321,8 @@ public class HistorialActivity extends FlapRequests implements FlapRequests.Flap
 
     @Override
     public void getTransactionsResponse(Boolean success, JSONArray transactions, String message) {
+        Log.d("TRANSACTIONS","LLEGA");
+
         ld.dismiss();
         if(success){
             Log.d("TRANSACTIONS",transactions.toString());

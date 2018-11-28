@@ -1094,6 +1094,7 @@ public abstract class FlapRequests extends CommonActivity {
     }
     public void getTransactions(Context context, String token, String fromDate, String toDate){
         String url = "https://www.adquiramexico.com.mx/";
+
         if (env.equals("D")){ url = "https://prepro.adquiracloud.mx/"; }
 
         //call callback method
@@ -1108,13 +1109,18 @@ public abstract class FlapRequests extends CommonActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
-                JSONArray transactions = response.optJSONArray("transactions");
-                flap_responses.getTransactionsResponse(true, transactions, "");
+               // JSONObject jsonObject = (new JSONObject(response)).getJSONObject("");
+
+                System.out.println(response.toString());
+                JSONArray transactions =  response.optJSONArray("transactions");
+                System.out.println(transactions);
+
+                flap_responses.getTransactionsResponse(true, transactions, "transacciones");
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
+                //super.onFailure(statusCode, headers, responseString, throwable);
                 //System.out.println(responseString.toString());
                 flap_responses.getTransactionsResponse(false, null, "Error de conexión");
 
@@ -1123,7 +1129,7 @@ public abstract class FlapRequests extends CommonActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                //System.out.println(errorResponse.toString());
+               // System.out.println(errorResponse.toString());
                 flap_responses.getTransactionsResponse(false, null, "Error de conexión");
 
             }
