@@ -87,7 +87,7 @@ public class CustomDialog {
         dialog.setContentView(R.layout.dialog_sucees);
         TextView tvMensError = dialog.findViewById(R.id.tvMensSucces);
         tvMensError.setText(Html.fromHtml(mensaje + "<font color='#072146'>" + parteVerde + "</font>"));
-        ImageButton tvAceptar = dialog.findViewById(R.id.tvAceptar);
+        Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
         tvAceptar.setOnClickListener(v -> {
             dialog.dismiss();
         });
@@ -104,7 +104,7 @@ public class CustomDialog {
         dialog.setContentView(R.layout.dialog_sucees);
         TextView tvMensError = dialog.findViewById(R.id.tvMensSucces);
         tvMensError.setText(Html.fromHtml(mensaje + "<font color='#072146'>" + parteVerde + "</font>"));
-        ImageButton tvAceptar = dialog.findViewById(R.id.tvAceptar);
+        Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
         tvAceptar.setOnClickListener(v -> {
             context.runOnUiThread(aceptar);
             dialog.dismiss();

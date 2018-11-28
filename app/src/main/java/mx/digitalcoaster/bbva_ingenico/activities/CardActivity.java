@@ -344,8 +344,8 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             statusEditText.setText("DISPOSITIVO CONECTADO \n CONTINUAR");
             pagarButton.setVisibility(View.VISIBLE);
             loading.showing = false;
-            CustomDialog cl = new CustomDialog(context,"Dispositivo móvil y lector \n de tarjetas vinculados",runnable, 0);
-            cl.show();
+            //CustomDialog cl = new CustomDialog(context,"Dispositivo móvil y lector \n de tarjetas vinculados",runnable, 0);
+            //cl.show();
         }else {
             //FALTA cambiar imagen y agregar un boton para activar bluetooth
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceoff));
@@ -504,102 +504,109 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     }
 
 
+
+
     @Override
     public void didFinishPayment(Boolean bSuccess, String sTransactionId, String sAuthCode, String sCriptograma, String sMessage) {
-        Log.d ("didFinishPayment", bSuccess.toString ());
-        Log.d ("didFinishPayment", sTransactionId);
-        Log.d ("didFinishPayment", sAuthCode);
-        Log.d ("didFinishPayment", sCriptograma);
-        Log.d ("didFinishPayment", sMessage);
+        CardActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
 
-        if (loading.showing) {
-            loading.dismiss();
-        }
-        loading.showing = false;
-        pinEntered = false;
+                Log.d("didFinishPayment", bSuccess.toString());
+                Log.d("didFinishPayment", sTransactionId);
+                Log.d("didFinishPayment", sAuthCode);
+                Log.d("didFinishPayment", sCriptograma);
+                Log.d("didFinishPayment", sMessage);
 
-        //En caso de pago correcto
-        if (bSuccess) {
-            Log.d ("DIGITALCOASTER","ya estamos con el finishpayment");
+                if (loading.showing) {
+                    loading.dismiss();
+                }
+                loading.showing = false;
+                pinEntered = false;
 
-            //finishPayment = true;
-            String amountString = getAmount ();
-            Log.d ("mpos", "Amount. " + amountString + sMoneda);
+                //En caso de pago correcto
+                if (bSuccess) {
+                    Log.d("DIGITALCOASTER", "ya estamos con el finishpayment");
 
-            SharedPreferences prefs = context.getSharedPreferences ("flap", Context.MODE_PRIVATE);
-            prefs.edit ().putString ("monto", amountString).apply ();
-            prefs.edit ().putString ("auth", sAuthCode).apply ();
-            prefs.edit ().putString ("transaction", sTransactionId).apply ();
-            prefs.edit ().putString ("ambiente", getEnv ()).apply ();
-            prefs.edit ().putString ("token", token).apply ();
+                    //finishPayment = true;
+                    String amountString = getAmount();
+                    Log.d("mpos", "Amount. " + amountString + sMoneda);
 
-            //finishPayment = false;
+                    SharedPreferences prefs = context.getSharedPreferences("flap", Context.MODE_PRIVATE);
+                    prefs.edit().putString("monto", amountString).apply();
+                    prefs.edit().putString("auth", sAuthCode).apply();
+                    prefs.edit().putString("transaction", sTransactionId).apply();
+                    prefs.edit().putString("ambiente", getEnv()).apply();
+                    prefs.edit().putString("token", token).apply();
 
-            //CrashAnalitycs
+                    //finishPayment = false;
+
+                    //CrashAnalitycs
             /*Answers.getInstance().logPurchase(new PurchaseEvent()
                     .putCustomAttribute("Environment", env)
                     .putItemPrice(BigDecimal.valueOf(Double.valueOf(amountString)))
                     .putCurrency(Currency.getInstance(money))
                     .putSuccess(true));*/
 
-            //Se pide algun tipo de firma electronica
-            if (pin_entered) {
-                //Answers.getInstance().logCustom(new CustomEvent("CHIP & PIN Payment Succesfull"));
-                CustomDialog mCustomDialog = new CustomDialog (context, amountString,
-                        "El recibo se enviará al ",
-                        "correo electrónico del usuario",
-                        "¡Gracias por utilizar ",
-                        "MPOS!",
-                        sAuthCode,
-                        sMoneda,
-                        () -> {
-                            Intent myIntent = new Intent (context, InicioActivity.class);
-                            myIntent.putExtra ("ambiente", getEnv ());
-                            myIntent.addFlags (Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity (myIntent);
-                            //Log.d("DataRequest","SUCCESS: " + response);
-                        }
-                );
-                mCustomDialog.show ();
+                    //Se pide algun tipo de firma electronica
+                    if (pin_entered) {
+                        //Answers.getInstance().logCustom(new CustomEvent("CHIP & PIN Payment Succesfull"));
+                        CustomDialog mCustomDialog = new CustomDialog(context, amountString,
+                                "El recibo se enviará al ",
+                                "correo electrónico del usuario",
+                                "¡Gracias por utilizar ",
+                                "MPOS!",
+                                sAuthCode,
+                                sMoneda,
+                                () -> {
+                                    Intent myIntent = new Intent(context, InicioActivity.class);
+                                    myIntent.putExtra("ambiente", getEnv());
+                                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(myIntent);
+                                    //Log.d("DataRequest","SUCCESS: " + response);
+                                }
+                        );
+                        mCustomDialog.show();
 
-            } else { //Pide signature
+                    } else { //Pide signature
 
                /* if (isEMVAnswers){
                     Answers.getInstance().logCustom(new CustomEvent("EMV Payment Succesfull"));
                 } else {
                     Answers.getInstance().logCustom(new CustomEvent("MSR Payment Succesfull"));
                 }*/
-                CustomDialog customDialog = new CustomDialog (context, "La transacción se realizó ",
-                        "¡CORRECTAMENTE!", () -> {
+                        CustomDialog customDialog = new CustomDialog(context, "La transacción se realizó ",
+                                "¡CORRECTAMENTE!", () -> {
 
-                    Intent intent;
-                    intent = new Intent (CardActivity.this, FingerDrawActivity.class );
-                    intent.putExtra ("amount", amountString);
-                    intent.putExtra ("ambiente", getEnv ());
-                    intent.putExtra ("transaccion", sTransactionId);
-                    intent.putExtra ("token", getToken ());
-                    startActivity (intent);
+                            Intent intent;
+                            intent = new Intent(CardActivity.this, FingerDrawActivity.class);
+                            intent.putExtra("amount", amountString);
+                            intent.putExtra("ambiente", getEnv());
+                            intent.putExtra("transaccion", sTransactionId);
+                            intent.putExtra("token", getToken());
+                            startActivity(intent);
 
-                });
-                customDialog.show ();
-            }
+                        });
+                        customDialog.show();
+                    }
 
 
-            // En caso de pago incorrecto
-        } else {
-            statusEditText.setText ("Error en Pago (" + sMessage + " )");
-            error = new CustomDialog (context, "Error en Pago (" + sMessage + " )", () -> {
-                finishPayment = false;
-            });
-            error.show ();
-            pagarButton.setEnabled (true);
-            regresarButton.setEnabled (true);
+                    // En caso de pago incorrecto
+                } else {
+                    statusEditText.setText("Error en Pago (" + sMessage + " )");
+                    error = new CustomDialog(context, "Error en Pago (" + sMessage + " )", () -> {
+                        finishPayment = false;
+                    });
+                    error.show();
+                    pagarButton.setEnabled(true);
+                    regresarButton.setEnabled(true);
             /*if (isEMVAnswers){
                 Answers.getInstance().logCustom(new CustomEvent("EMV Payment Error"));
             } else {
                 Answers.getInstance().logCustom(new CustomEvent("MSR Payment Error"));
             }*/
-        }
+                }
+            }
+        });
     }
 
     @Override

@@ -15,6 +15,8 @@ import android.hardware.usb.UsbManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RadioGroup;
@@ -407,6 +409,15 @@ public abstract class FlapRequests extends CommonActivity {
         mNetworkTask = new NetworkTask(1087,2,1, false);
         mNetworkTask.execute();
     }
+
+
+    public void didAuthorize(){
+        //runOnUiThread(new Runnable() {
+
+        flap_responses.didFinishPayment(true,"2341234","adq35445","-","-");
+
+    }
+
 
     private void searchBinForPointsAndMonths(String bin, final Boolean isEMV, String tlv){
         Log.d("BinForPointsAndMonths", "yeap");
@@ -2033,8 +2044,8 @@ public abstract class FlapRequests extends CommonActivity {
             } else if (mTailleBuf == 2) {
                 Log.d("ZERTUCHE", "Approved");
                 //authorizePayment();
-
-                flap_responses.didFinishPayment(true,"2341234","adq35445","-","-");
+                didAuthorize();
+                //
             } else {
                 Log.d("ZERTUCHE", "Error");
             }
