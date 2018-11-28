@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,10 +21,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.InflateException;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,7 +47,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 
 import mx.digitalcoaster.bbva_ingenico.R;
 import mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeEditText;
@@ -50,7 +60,7 @@ public class InicioActivity extends AppCompatActivity {
 
     private static String TAG = InicioActivity.class.getSimpleName();
 
-    private TextView tvConcepto, tvNoTrans;
+    private TextView tvConcepto, tvNoTrans, monedaTV;
     private EditText etConcepto, etNoTrans, etMailTarj, propinaET;
     private AutoResizeEditText importeTxt;
     private Button ibAceptar;
@@ -88,6 +98,7 @@ public class InicioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
 
         fromIntent = getIntent();
         mToolbar = findViewById(R.id.toolbar);
@@ -132,6 +143,7 @@ public class InicioActivity extends AppCompatActivity {
 
         spPropina = findViewById(R.id.spinner2);
         spMoneda = findViewById(R.id.spinner3);
+        monedaTV = findViewById(R.id.monedaTV);
 
 
         importeTxt.setSelection(importeTxt.getText().length());
@@ -567,6 +579,7 @@ public class InicioActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 prefs.edit().putString("moneda", i + "").apply();
+                monedaTV.setText(monedasList.get(i));
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -582,7 +595,8 @@ public class InicioActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_inicio, menu);
         menu_1 = menu.findItem(R.id.cbTransaccion);
         menu_2 = menu.findItem(R.id.cbConcepto);
-        menu_3 = menu.findItem(R.id.cbPropina);
+        //menu_3 = menu.findItem(R.id.cbPropina);
+
 
 
         if (sTransaccion.equals("1")){
@@ -630,19 +644,6 @@ public class InicioActivity extends AppCompatActivity {
                     tvConcepto.setVisibility(View.VISIBLE);
                     item.setChecked(true);
                     prefs.edit().putString("concepto","1").apply();
-                }
-                return true;
-            case R.id.cbPropina:
-                if(item.isChecked()) {
-                    bPropina = false;
-                    item.setChecked(false);
-                    propinaLayout.setVisibility(View.GONE);
-                    prefs.edit().putString("propina","0").apply();
-                } else {
-                    bPropina = true;
-                    propinaLayout.setVisibility(View.VISIBLE);
-                    item.setChecked(true);
-                    prefs.edit().putString("propina","1").apply();
                 }
                 return true;
             default:

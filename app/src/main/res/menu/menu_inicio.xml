@@ -8,7 +8,9 @@
             android:titleCondensed="Transacción"
             android:title="No. de Transacción"
             android:icon="@android:drawable/ic_menu_preferences"
-            android:checkable="true">
+            android:checkable="true"
+            android:name="android:itemTextAppearance"
+            tools:ignore="ExtraText">@style/myMenuTextApearance
 
         </item>
 
@@ -18,10 +20,5 @@
             android:checkable="true">
         </item>
 
-        <item android:id="@+id/cbPropina"
-            android:title="Propina"
-            android:icon="@android:drawable/ic_menu_preferences"
-            android:checkable="true">
-        </item>
     </group>
 </menu>

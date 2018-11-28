@@ -49,7 +49,7 @@ public class CustomDialog {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_pago_realizado);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        TextView tvMonto =  dialog.findViewById(R.id.tvMonto2);
+        AutoResizeTextView tvMonto =  dialog.findViewById(R.id.importeEntero);
 
         tvMonto.setText("$ "+monto+" "+ typeMoney);
 

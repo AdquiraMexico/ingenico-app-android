@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
-    android:id="@+id/toolbar2"
+    android:id="@+id/toolbar3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
@@ -14,6 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
         android:layout_height="wrap_content" >
 
         <ImageButton
@@ -32,8 +33,14 @@
             android:id="@+id/logomposbbva"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_toEndOf="@+id/backBttn"
+            android:layout_toRightOf="@+id/backBttn"
             android:src="@mipmap/logomposbbva"
+            android:scaleX=".8"
+            android:scaleY=".8"
             android:visibility="visible" />
 
         <EditText

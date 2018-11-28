@@ -63,11 +63,11 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     Button pagarButton;
     Activity context = this;
     private AutoResizeTextView amountTextView;
-    private TextView statusEditText;
+    private TextView statusEditText, monedaTV;
     private ImageView ivStatus;
     private LinearLayout llStatus;
     private Dialog dialog;
-    private Toolbar mToolbar;
+    Toolbar mToolbar;
 
     private Boolean finishPayment = false;
     private Boolean pin_entered = false;
@@ -126,12 +126,16 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
         moneda = prefs.getString("moneda", null);
         setMoneda(moneda);
 
+
+
         mToolbar = findViewById(R.id.toolbar2);
         diviceButton = mToolbar.findViewById(R.id.deviceButton);
 
         amountTextView = findViewById(R.id.importeEntero);
         statusEditText = findViewById(R.id.statusEditText);
         pagarButton = findViewById(R.id.ibAceptar);
+        monedaTV = findViewById(R.id.monedaTV);
+        monedaTV.setText(moneda);
 
         MyOnClickListener myOnClickListener = new MyOnClickListener();
         pagarButton.setOnClickListener(myOnClickListener);
@@ -282,11 +286,14 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
         if(moneda.contains("0")){
             sMoneda = "MXN";
+            monedaTV.setText(sMoneda);
+
         } else {
             sMoneda = "USD";
+            monedaTV.setText(sMoneda);
         }
         //Pones ela cifra en la pantalla
-        amountTextView.setText("$" + sMonto + " "+ sMoneda);
+        amountTextView.setText("$" + sMonto);
     }
 
     private void verifyConexion(){
@@ -311,7 +318,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, 1);
         }
-        Log.d("HEEEY", "GRANTED");
+        Log.d("HEEEY", "GRANTºED");
         //startWalker();
         if (isBTConnected){
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceon));
@@ -334,11 +341,15 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             loading.dismiss();
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceon));
             statusEditText.setText("DISPOSITIVO CONECTADO. \n CONTINUAR");
+            pagarButton.setVisibility(View.VISIBLE);
+            loading.showing = false;
         }else {
             //FALTA cambiar imagen y agregar un boton para activar bluetooth
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceoff));
            // loading.dismiss();
             statusEditText.setText("VINCULA EL LECTOR DE TARJETAS \n AL DISPOSITIVO MÓVIL");
+            loading.showing = false;
+
         }
     }
 
@@ -729,10 +740,40 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 setPaymentArguments(sMonto, "-","-","-","token","P","-","-","-");
                 //            setPaymentArguments("2.00","-","-","-","token","P","-","-","-");
                 setVersion_app("whitelabel_a_1.0.2");
-                statusEditText.setText("Inserta o desliza la tarjeta...");
+
+                if(loading.showing){
+                    loading.dismiss();}
+                loading.showing=false;
+                CustomDialogReader reader = new CustomDialogReader(context,
+                        ()->{
+                            statusEditText.setText("Deslizar tarjeta...");
+                            loading = new LoadingDialog(context,"Deslizar tarjeta...","","");
+                            loading.show();
+                            loading.showing=true;
+                            //swipeNomad();
+                        },
+                        ()->{
+                            statusEditText.setText("Insertar tarjeta...");
+                            loading = new LoadingDialog(context,"Insertar tarjeta...","","");
+                            loading.show();
+                            loading.showing=true;
+                            emvPayment (context);
+                            //emvNomad();
+                        },
+                        ()->{
+                            statusEditText.setText("Lectura cancelada");
+                        }, getFallback());
+                reader.allowBackButton(true, ()->{
+                    statusEditText.setText("Lectura cancelada");
+                });
+                reader.show();
+
+
+                /*statusEditText.setText("Inserta o desliza la tarjeta...");
                 loading = new LoadingDialog(context,"Inserta o desliza la tarjeta...","","");
                 loading.show();
-                loading.showing=true;
+                loading.showing=true;*/
+
                 if (isReaderConnected){
                     checkCard();
                     loading.allowBackButton(true, ()->{

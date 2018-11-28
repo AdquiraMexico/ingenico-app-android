@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -8,15 +9,17 @@
     android:background="?attr/colorPrimary"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    app:popupTheme="@style/MythemeMenu"
+    app:ignore="NamespaceTypo">
 
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:id="@+id/imageButton3"
             android:src="@mipmap/icon_menu"
             android:scaleX=".7"
@@ -28,9 +31,14 @@
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="-6dp"
+            android:layout_marginLeft="-6dp"
+            android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/imageButton3"
-            android:src="@mipmap/logomposbbva"
-            android:layout_toRightOf="@+id/imageButton3" />
+            android:layout_toRightOf="@+id/imageButton3"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:src="@mipmap/logomposbbva" />
 
 
     </RelativeLayout>

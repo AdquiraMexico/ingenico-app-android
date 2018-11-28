@@ -26,17 +26,17 @@ public class CustomDialogReader {
         dialog = new Dialog (context);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_reader);
-        ImageButton deslizar = (ImageButton) dialog.findViewById(R.id.imageButton3);
-        deslizar.setOnClickListener(v -> {
+        //ImageButton deslizar = (ImageButton) dialog.findViewById(R.id.imageButton3);
+        /*deslizar.setOnClickListener(v -> {
             context.runOnUiThread(swipe);
             dialog.dismiss();
-        } );
+        } );*/
 
-        ImageButton insertar = (ImageButton) dialog.findViewById(R.id.imageButton4);
+       /* ImageButton insertar = (ImageButton) dialog.findViewById(R.id.imageButton4);
         insertar.setOnClickListener(v -> {
             context.runOnUiThread(insert);
             dialog.dismiss();
-        } );
+        } );*/
 
         TextView tvcancelar = (TextView) dialog.findViewById(R.id.tvAceptar);
         tvcancelar.setOnClickListener(v -> {
@@ -44,9 +44,9 @@ public class CustomDialogReader {
             dialog.dismiss();
         } );
 
-        if (showOnlyOne){
+        /*if (showOnlyOne){
             insertar.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     public void allowBackButton(Boolean allow, Runnable runnable){

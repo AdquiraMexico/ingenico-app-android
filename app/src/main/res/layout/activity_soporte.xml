@@ -1,9 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".activities.SoporteActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/mainimg"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/foto_soporte" />
+
+        <ImageView
+            android:id="@+id/imageView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="203dp"
+            android:layout_marginRight="203dp"
+            android:scaleType="centerCrop"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@mipmap/logompsbbva2" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue_celeste"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:background="#00ffffff"
+            android:scaleX="1.6"
+            android:scaleY="1.6"
+            android:src="@mipmap/iconsoporte" />
+
+        <TextView
+            android:id="@+id/soporttv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="59dp"
+            android:layout_marginLeft="59dp"
+            android:text="SOPORTE"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="151dp"
+            android:layout_marginLeft="151dp"
+            android:layout_marginTop="0dp"
+            android:text="(01 800) 060 6767"
+            android:textColor="@color/aqua"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/soporttv"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="59dp"
+            android:layout_marginLeft="59dp"
+            android:layout_marginTop="23dp"
+            android:text="Lunes a Viernes de 9:00 a 17:00 hrs."
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/imageButton7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:background="#00ffffff"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:src="@mipmap/arroba" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="62dp"
+                android:layout_marginLeft="62dp"
+                android:layout_marginTop="6dp"
+                android:text="contacto@flap.mx"
+                android:textColor="@color/aqua"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button3"
+            android:text="LLAMAR "
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

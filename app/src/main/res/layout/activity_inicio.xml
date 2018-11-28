@@ -46,7 +46,7 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif-light"
                     android:hint="$ 0.00 "
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/white"
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="CORREO ELECTRONICO"
+                        android:text="CORREO ELECTRÓNICO"
                         android:textSize="15dp"
                         android:textColor="@color/aqua" />
 
@@ -127,6 +127,7 @@
                         android:spinnerMode="dropdown"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
+                        android:backgroundTint="@color/white"
                         android:outlineAmbientShadowColor="@color/white"
                         android:outlineSpotShadowColor="@color/white"
                         android:transitionGroup="false" />

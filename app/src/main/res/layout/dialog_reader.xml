@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
-            <ImageButton
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imageDesliza"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -36,11 +36,11 @@
                 android:layout_weight="1"
                 android:background="#00ffffff"
                 android:padding="5dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/icono_desliza" />
 
-            <ImageButton
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imageButton4"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -70,7 +70,7 @@
                 android:textAlignment="center"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:src="@mipmap/icono_desliza" />
 
             <TextView
@@ -88,7 +88,7 @@
                 android:src="@mipmap/icono_inserta" />
         </LinearLayout>
 
-        <TextView
+       <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancelar >"
@@ -97,7 +97,8 @@
             android:textColor="@color/light_blue"
             android:onClick="closeDialog"
             android:textSize="20dp"
-            android:layout_marginBottom="10dp"
+           android:visibility="invisible"
+           android:layout_marginBottom="10dp"
             android:paddingBottom="20dp" />
     </LinearLayout>
 </LinearLayout>
