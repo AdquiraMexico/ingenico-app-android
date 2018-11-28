@@ -20,13 +20,11 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RadioGroup;
-
 import mx.digitalcoaster.bbva_ingenico.activities.CommonActivity;
 import com.ingenico.pclservice.PclService;
 import com.ingenico.pclutilities.PclUtilities;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +54,6 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.conn.ConnectTimeoutException;
 import cz.msebera.android.httpclient.entity.StringEntity;
-
 
 /**
  * Created by rzertuche on 1/20/16.
@@ -970,7 +967,7 @@ public abstract class FlapRequests extends CommonActivity {
                     msg="Error de conexión";
                 }
                 if (authCode.length() > 0 && criptograma.length() > 0 && transactionId.length() > 0){}
-                    //flap_responses.didFinishPayment(true, transactionId, authCode, criptograma, payment_message);
+                //flap_responses.didFinishPayment(true, transactionId, authCode, criptograma, payment_message);
                 else
                     flap_responses.didFinishPayment(false, "", "", "", msg);
                 resetAll();
@@ -1009,7 +1006,7 @@ public abstract class FlapRequests extends CommonActivity {
                 }
 
                 if (authCode.length() > 0 && criptograma.length() > 0 && transactionId.length() > 0){}
-                    //flap_responses.didFinishPayment(true, transactionId, authCode, criptograma, payment_message);
+                //flap_responses.didFinishPayment(true, transactionId, authCode, criptograma, payment_message);
                 else
                     flap_responses.didFinishPayment(false, "", "", "", msg);
                 resetAll();
@@ -1017,7 +1014,9 @@ public abstract class FlapRequests extends CommonActivity {
         });
     }
     public void sendSignature(Context context, String image_base64, String transactionId){
+        flap_responses.didSendSignature(true);
 
+/*
         String url = "https://www.adquiramexico.com.mx/";
         if (env.equals("D")){ url = "https://prepro.adquiracloud.mx/"; }
         Log.d("FIRMA URL", url);
@@ -1091,7 +1090,7 @@ public abstract class FlapRequests extends CommonActivity {
                 flap_responses.didSendSignature(false);
                 resetAll();
             }
-        });
+        });*/
     }
     public void getTransactions(Context context, String token, String fromDate, String toDate){
         String url = "https://www.adquiramexico.com.mx/";
@@ -1373,7 +1372,7 @@ public abstract class FlapRequests extends CommonActivity {
 
 
 
-        //Setting Variables
+    //Setting Variables
     public String getAmount() {
         return amount;
     }
@@ -1490,6 +1489,7 @@ public abstract class FlapRequests extends CommonActivity {
             flap_responses.isDeviceConnected(false);
         }
     }
+
 
     @Override
     public void onBarCodeReceived(String barCodeValue, int symbology) {
@@ -1806,7 +1806,6 @@ public abstract class FlapRequests extends CommonActivity {
                     0x26, (byte) 0x9F, 0x27, (byte) 0x9F, 0x36, (byte) 0x95, (byte) 0x9F, 0x10, (byte) 0x9F, 0x37, (byte) 0x9B, (byte) 0x8A
             };
 
-
             //			byte[] buffer3=new byte[1024];
             //mtvResult = (EditText)findViewById(R.id.tvResult);
 
@@ -1817,6 +1816,7 @@ public abstract class FlapRequests extends CommonActivity {
             } else if (mTailleBuf == 2) {
                 buffer = Arrays.copyOf(Approvalbuffer, Approvalbuffer.length);
             }
+            //Log.d("DIGITALCOASTER",bytesToHexString(GetCardbuffer));
 
 //			for (int i=0; i<mTailleBuf; i++)
 //			{
@@ -2033,14 +2033,24 @@ public abstract class FlapRequests extends CommonActivity {
             // IF 1, es la lectura
             if (mTailleBuf == 1) {
                 Log.d("ZERTUCHE", "TLV:" + bytesToHexString(buffer2));
+
+                //RootDecoder.decode( bytesToHexString(buffer2));
                 Log.d("ZERTUCHE", "CARD:" + bytesToHexString(buffer2).replace(" ", "").substring(18, 24));
+                Log.d("ZERTUCHE", "METHOD:" + bytesToHexString(buffer2).replace(" ", "").substring(206,212));
+                String method = bytesToHexString(buffer2).replace(" ", "").substring(206,212) ;
+                Log.d("pinRequest", "pinRequest: "+ method);
+
+                if(method.equals("410302")) {
+                    Log.d("pinRequest", "pinRequest");
+                    flap_responses.pinRequest();
+                }
                 //Webservice a meses sin intereses
                 //searchBinForPointsAndMonths(bytesToHexString(buffer2).replace(" ", "").substring(18, 24),true, bytesToHexString(buffer2));
                 //HAPPY PATH
                 authorizePayment();
 
 
-            // IF 2, approved
+                // IF 2, approved
             } else if (mTailleBuf == 2) {
                 Log.d("ZERTUCHE", "Approved");
                 //authorizePayment();
@@ -2113,4 +2123,6 @@ public abstract class FlapRequests extends CommonActivity {
         }
 
     }
+
+
 }

@@ -20,11 +20,11 @@ public class FinishActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_finish);
 
-        AutoResizeTextView tvMonto = findViewById(R.id.importeEntero);
+        /*AutoResizeTextView tvMonto = findViewById(R.id.importeEntero);
 
         tvMonto.setText("$ "+monto+" "+ typeMoney);
 
         TextView tvAprobacion = dialog.findViewById(R.id.tvAprob);
-        tvAprobacion.setText("No. de Aprobación: "+aprobacion);
+        tvAprobacion.setText("No. de Aprobación: "+aprobacion);*/
     }
 }

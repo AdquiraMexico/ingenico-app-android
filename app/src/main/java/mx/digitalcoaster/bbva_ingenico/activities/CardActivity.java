@@ -555,13 +555,13 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
 
 
-                        Intent myIntent = new Intent(context, InicioActivity.class);
+                       /* Intent myIntent = new Intent(context, InicioActivity.class);
                         myIntent.putExtra("ambiente", getEnv());
                         myIntent.putExtra("amount", amountString);
                         myIntent.putExtra("ambiente", getEnv());
                         myIntent.putExtra("ambiente", getEnv());
                         myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(myIntent);
+                        startActivity(myIntent);*/
 
                         CustomDialog mCustomDialog = new CustomDialog(context, amountString,
                                 "El recibo se enviará al ",
@@ -696,7 +696,9 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
     @Override
     public void pinRequest() {
-
+        Log.d("pinRequest", "pinRequest");
+        pin_entered = true;
+        pinEntered = true;
     }
 
     @Override
