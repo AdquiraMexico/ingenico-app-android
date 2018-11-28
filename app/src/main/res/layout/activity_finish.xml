@@ -9,77 +9,200 @@
     android:gravity="center_horizontal"
     tools:context=".activities.FinishActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="40dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:src="@mipmap/circulo_verde" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue_celeste"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-        android:text="OPERACIÓN EXITOSA"
-        android:textColor="@color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_celeste"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".2"
-        android:text="SE REALIZÓ UN COBRO DE"
-        android:textColor="@color/white"/>
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/circulo_verde" />
 
-    <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeTextView
-        android:id="@+id/importeEntero"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".8"
-        android:background="@android:color/transparent"
-        android:fontFamily="sans-serif-light"
-        android:hint="$ 0.00 "
-        android:imeOptions="actionNext"
-        android:inputType="number"
-        android:singleLine="true"
-        android:textColor="@color/aqua"
-        android:textColorHint="@color/aqua"
-        android:textSize="65sp"
-        tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:text="OPERACIÓN EXITOSA"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".3"
-        android:text="Nº aprobación : 0881313"
-        android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="SE REALIZÓ UN COBRO DE "
+                android:textAlignment="center"
+                android:textColor="#FFF"
+                android:textSize="15dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="2.3"
-        android:scaleX="1.4"
-        android:scaleY="1.4"
-        android:src="@mipmap/icono_operacion_exitosa" />
+            <mx.digitalcoaster.bbva_ingenico.dialogs.AutoResizeTextView
+                android:id="@+id/importeEntero"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight=".8"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif-light"
+                android:hint="$ 0.00 MXN"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/aqua"
+                android:textColorHint="@color/aqua"
+                android:textSize="65sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".7"
-        android:textAlignment="center"
-        android:text="El comprobante del pago se\n enviara al correo eletrónico ingresado"
-        android:textColor="@color/white"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button1"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:layout_marginBottom="50dp"
-        android:text="FINALIZAR"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/tvAprob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="Nº aprovación: 0821345"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:src="@mipmap/icono_operacion_exitosa" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/blue_celeste"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+
+            <TextView
+                android:id="@+id/mensajeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:text="El comprobante de pago se enviara al correo electrónico ingresado"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <Button
+                android:id="@+id/tvAceptar2"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button3"
+                android:text="FINALIZAR"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¡Excelente!"
+                android:id="@+id/tvgreentxt"
+                android:textSize="15dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="#8aC24a"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Se realizó un pago de:"
+                android:id="@+id/tvMensSucces"
+                android:textSize="15dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/tvMonto"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="El recibo se enviara al correo electrónico del tarjetahabiente \n gracias"
+            android:id="@+id/tvMensaje"
+            android:textSize="14dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aceptar >"
+            android:id="@+id/tvAceptar"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/light_blue"
+            android:onClick="closeDialog"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="15dp" />
+    </LinearLayout>
 
 
 

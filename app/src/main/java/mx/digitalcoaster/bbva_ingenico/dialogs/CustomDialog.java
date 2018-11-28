@@ -71,8 +71,8 @@ public class CustomDialog {
 
         TextView tvMensaje = dialog.findViewById(R.id.tvMensaje);
 
-        tvMensaje.setText(Html.fromHtml(mensaje1 + "<br><font color='#0abaee'>" + mensaje2 + "</font><br>" + mensaje3 + "<font color='#0abaee'>" + mensaje4 + "</font>"));
-        ImageButton tvAceptar = dialog.findViewById(R.id.tvAceptar2);
+        //tvMensaje.setText(Html.fromHtml(mensaje1 + "<br><font color='#0abaee'>" + mensaje2 + "</font><br>" + mensaje3 + "<font color='#0abaee'>" + mensaje4 + "</font>"));
+        Button tvAceptar = dialog.findViewById(R.id.tvAceptar2);
         tvAceptar.setOnClickListener(v -> {
             context.runOnUiThread(aceptar);
             dialog.dismiss();
@@ -80,18 +80,18 @@ public class CustomDialog {
     }
 
 
-    //Mensaje de transaccion realizada
+   /* //Mensaje de transaccion realizada
     public CustomDialog(Activity context, String mensaje, String parteVerde){
         dialog = new Dialog(context);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_sucees);
         TextView tvMensError = dialog.findViewById(R.id.tvMensSucces);
-        tvMensError.setText(Html.fromHtml(mensaje + "<font color='#072146'>" + parteVerde + "</font>"));
+        //tvMensError.setText(Html.fromHtml(mensaje + "<font color='#072146'>" + parteVerde + "</font>"));
         Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
         tvAceptar.setOnClickListener(v -> {
             dialog.dismiss();
         });
-    }
+    }*/
 
     public void closeDialog(View v){
         dialog.dismiss();
@@ -103,7 +103,7 @@ public class CustomDialog {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_sucees);
         TextView tvMensError = dialog.findViewById(R.id.tvMensSucces);
-        tvMensError.setText(Html.fromHtml(mensaje + "<font color='#072146'>" + parteVerde + "</font>"));
+        //tvMensError.setText(Html.fromHtml(mensaje + "<font color='#072146'>" + parteVerde + "</font>"));
         Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
         tvAceptar.setOnClickListener(v -> {
             context.runOnUiThread(aceptar);

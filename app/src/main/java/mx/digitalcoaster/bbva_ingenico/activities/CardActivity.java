@@ -91,6 +91,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
     LoadingDialog loading;
     CustomDialog error;
+    CustomDialogReader customReader;
     String sToken;
     String sMonto;
     String sConcepto;
@@ -344,8 +345,8 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             statusEditText.setText("DISPOSITIVO CONECTADO \n CONTINUAR");
             pagarButton.setVisibility(View.VISIBLE);
             loading.showing = false;
-            //CustomDialog cl = new CustomDialog(context,"Dispositivo móvil y lector \n de tarjetas vinculados",runnable, 0);
-            //cl.show();
+            CustomDialog cl = new CustomDialog(context,"Dispositivo móvil y lector \n de tarjetas vinculados",runnable, 0);
+            cl.show();
         }else {
             //FALTA cambiar imagen y agregar un boton para activar bluetooth
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceoff));
@@ -526,6 +527,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 //En caso de pago correcto
                 if (bSuccess) {
                     Log.d("DIGITALCOASTER", "ya estamos con el finishpayment");
+                    customReader.closeDialog();
 
                     //finishPayment = true;
                     String amountString = getAmount();
@@ -550,6 +552,17 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                     //Se pide algun tipo de firma electronica
                     if (pin_entered) {
                         //Answers.getInstance().logCustom(new CustomEvent("CHIP & PIN Payment Succesfull"));
+
+
+
+                        Intent myIntent = new Intent(context, InicioActivity.class);
+                        myIntent.putExtra("ambiente", getEnv());
+                        myIntent.putExtra("amount", amountString);
+                        myIntent.putExtra("ambiente", getEnv());
+                        myIntent.putExtra("ambiente", getEnv());
+                        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(myIntent);
+
                         CustomDialog mCustomDialog = new CustomDialog(context, amountString,
                                 "El recibo se enviará al ",
                                 "correo electrónico del usuario",
@@ -574,7 +587,16 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 } else {
                     Answers.getInstance().logCustom(new CustomEvent("MSR Payment Succesfull"));
                 }*/
-                        CustomDialog customDialog = new CustomDialog(context, "La transacción se realizó ",
+                        Intent intent;
+                        intent = new Intent(CardActivity.this, FingerDrawActivity.class);
+                        intent.putExtra("amount", amountString);
+                        intent.putExtra("ambiente", getEnv());
+                        intent.putExtra("transaccion", sTransactionId);
+                        intent.putExtra("token", getToken());
+                        startActivity(intent);
+
+
+                        /*CustomDialog customDialog = new CustomDialog(context, "La transacción se realizó ",
                                 "¡CORRECTAMENTE!", () -> {
 
                             Intent intent;
@@ -586,7 +608,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                             startActivity(intent);
 
                         });
-                        customDialog.show();
+                        customDialog.show();*/
                     }
 
 
@@ -762,7 +784,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                 if(loading.showing){
                     loading.dismiss();}
                 loading.showing=false;
-                CustomDialogReader reader = new CustomDialogReader(context,
+                customReader = new CustomDialogReader(context,
                         ()->{
                             statusEditText.setText("Deslizar tarjeta...");
                             loading = new LoadingDialog(context,"Deslizar tarjeta...","","");
@@ -781,10 +803,10 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
                         ()->{
                             statusEditText.setText("Lectura cancelada");
                         }, getFallback());
-                reader.allowBackButton(true, ()->{
+                customReader.allowBackButton(true, ()->{
                     statusEditText.setText("Lectura cancelada");
                 });
-                reader.show();
+                customReader.show();
 
 
                 /*statusEditText.setText("Inserta o desliza la tarjeta...");

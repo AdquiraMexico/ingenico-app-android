@@ -92,7 +92,7 @@ public class LoginActivity extends FlapRequests implements FlapRequests.FlapResp
     public void modoDev(){
         //Toast.makeText(getApplicationContext(), "Desarrollo =)", Toast.LENGTH_LONG).show();
         setEnv("D");
-        CustomDialog dialog2 = new CustomDialog(this, "Modo Developer", "");
+        CustomDialog dialog2 = new CustomDialog(this, "Modo Developer", "", runnable);
         userNameTV.setText("mpm");
         passwordTV.setText("1234");
         dialog2.show();

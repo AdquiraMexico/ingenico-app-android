@@ -39,7 +39,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="270dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -50,6 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/cuadro_bbva"
+                android:scaleY="1.2"
+                android:scaleX="1.2"
 
                 />
             <mx.digitalcoaster.bbva_ingenico.graphics.FingerDrawingPad
@@ -57,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:background="#F4F4F4" />
+                />
 
         </RelativeLayout>
 

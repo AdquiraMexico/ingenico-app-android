@@ -17,7 +17,7 @@ public class CustomDialogReader {
     Dialog dialog;
     Activity context;
 
-    public void closeDialog(View v){
+    public void closeDialog(){
         dialog.dismiss();
     }
 

@@ -67,7 +67,7 @@
                 android:singleLine="true"
                 android:textColor="@color/aqua"
                 android:textColorHint="@color/aqua"
-                android:textSize="65sp"
+                android:textSize="63sp"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
@@ -87,7 +87,7 @@
                 android:text="Nº aprovación: 0821345"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="18dp" />
 
             <ImageView
                 android:id="@+id/imageView12"
@@ -124,12 +124,13 @@
 
             <Button
                 android:id="@+id/tvAceptar2"
-                android:layout_width="120dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:background="@drawable/button3"
                 android:text="FINALIZAR"
+                android:padding="10dp"
                 android:textColor="@color/white" />
+
         </LinearLayout>
     </LinearLayout>
 
