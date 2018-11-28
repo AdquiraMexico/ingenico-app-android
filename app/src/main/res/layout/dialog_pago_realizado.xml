@@ -61,7 +61,7 @@
                 android:layout_weight=".8"
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif-light"
-                android:hint="$ 0.00 "
+                android:hint="$ 0.00 MXN"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:singleLine="true"

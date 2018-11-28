@@ -72,6 +72,7 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
     private Boolean finishPayment = false;
     private Boolean pin_entered = false;
     Boolean isEMVAnswers = false;
+    private int cheat = 0;
 
 
     //Dispositivos Bluetooth
@@ -340,9 +341,11 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             Log.d("DIGITALCOASTER","ISDICECONNECTEDCHANGE");
             loading.dismiss();
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceon));
-            statusEditText.setText("DISPOSITIVO CONECTADO. \n CONTINUAR");
+            statusEditText.setText("DISPOSITIVO CONECTADO \n CONTINUAR");
             pagarButton.setVisibility(View.VISIBLE);
             loading.showing = false;
+            CustomDialog cl = new CustomDialog(context,"Dispositivo móvil y lector \n de tarjetas vinculados",runnable, 0);
+            cl.show();
         }else {
             //FALTA cambiar imagen y agregar un boton para activar bluetooth
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceoff));
@@ -352,6 +355,14 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
 
         }
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            cheat = 0;
+            // handler.postDelayed(this, 100);
+        }
+    };
 
 
     @Override
@@ -366,8 +377,8 @@ public class CardActivity extends FlapRequests implements FlapRequests.FlapRespo
             isBTConnected = true;
             diviceButton.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.deviceon));
             statusEditText.setText("DISPOSITIVO CONECTADO. \n CONTINUAR");
-            CustomDialog cl = new CustomDialog(context,"Ingenico conectado", "");
-            cl.show();
+            //CustomDialog cl = new CustomDialog(context,"Ingenico conectado");
+            //cl.show();
         }else {
             //No esta conectado
             if (!finishPayment){ //Y no se ha hecho el pago

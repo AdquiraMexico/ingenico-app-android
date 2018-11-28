@@ -43,6 +43,19 @@ public class CustomDialog {
         } );
     }
 
+    //Mensaje de conexion correcta
+    public CustomDialog(Activity context, String mensaje, Runnable aceptar, int i){
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_conexion_exitosa);
+        TextView tvMensError = dialog.findViewById(R.id.tvMensError);
+        tvMensError.setText(mensaje);
+        Button tvAceptar = dialog.findViewById(R.id.tvAceptar);
+        tvAceptar.setOnClickListener(v -> {
+            context.runOnUiThread(aceptar);
+            dialog.dismiss();
+        } );
+    }
+
     //Mensaje de Pago realizado
     public CustomDialog(Activity context, String monto, String mensaje1, String mensaje2, String mensaje3, String mensaje4, String aprobacion, String typeMoney, Runnable aceptar){
         dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);

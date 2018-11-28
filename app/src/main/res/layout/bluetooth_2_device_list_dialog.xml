@@ -52,6 +52,7 @@
 	    android:layout_height="wrap_content"
 	    android:text="Descubiertos"
 		android:textSize="13dp"
+		android:visibility="gone"
 		android:paddingLeft="15dp" />
 	    
 	<ListView
