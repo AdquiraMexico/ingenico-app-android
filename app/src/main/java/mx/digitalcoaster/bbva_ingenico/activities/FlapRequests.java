@@ -2045,7 +2045,7 @@ public abstract class FlapRequests extends CommonActivity {
                 String method = bytesToHexString(buffer2).replace(" ", "").substring(206,212) ;
                 Log.d("pinRequest", "pinRequest: "+ method);
 //340101
-                if(method.equals("410302") || method.equals("340101")) {
+                if(method.equals("410302") || method.equals("340101") || method.equals ("01019f")) {
                     Log.d("pinRequest", "pinRequest");
                     flap_responses.pinRequest();
                 }

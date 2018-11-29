@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ingenico</string>
+    <string name="app_name">BBVA MPOS</string>
     <string name="action_settings">Configuración</string>
     <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Cerrar</string>
